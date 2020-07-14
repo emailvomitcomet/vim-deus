@@ -573,18 +573,29 @@ call s:HL('DiffText',   s:yellow, s:bg0, s:inverse)
 " Spelling: {{{
 
 if has("spell")
-  " Not capitalised word, or compile warnings
-  if g:deus_improved_warnings == 0
-    call s:HL('SpellCap',   s:none, s:none, s:undercurl, s:red)
+  if has("gui_running")
+    " Not capitalised word, or compile warnings
+    if g:deus_improved_warnings == 0
+      call s:HL('SpellCap',   s:none, s:none, s:undercurl, s:red)
+    else
+      call s:HL('SpellCap',   s:green, s:none, s:bold . s:italic)
+    endif
+    " Not recognized word
+    call s:HL('SpellBad',   s:none, s:none, s:undercurl, s:blue)
+    " Wrong spelling for selected region
+    call s:HL('SpellLocal', s:none, s:none, s:undercurl, s:aqua)
+    " Rare word
+    call s:HL('SpellRare',  s:none, s:none, s:undercurl, s:purple)
   else
-    call s:HL('SpellCap',   s:green, s:none, s:bold . s:italic)
-  endif
-  " Not recognized word
-  call s:HL('SpellBad',   s:none, s:none, s:undercurl, s:blue)
-  " Wrong spelling for selected region
-  call s:HL('SpellLocal', s:none, s:none, s:undercurl, s:aqua)
-  " Rare word
-  call s:HL('SpellRare',  s:none, s:none, s:undercurl, s:purple)
+    " Not recognized word
+    call s:HL('SpellBad',   s:bg0, s:blue, s:bold, s:blue)
+    " Wrong spelling for selected region
+    call s:HL('SpellLocal', s:bg0, s:aqua, s:bold, s:aqua)
+    " Rare word
+    call s:HL('SpellRare',  s:bg0, s:purple, s:bold, s:purple)
+    " Not capitalised word, or compile warnings
+    call s:HL('SpellCap',   s:bg0, s:green, s:bold . s:italic)
+  endif 
 endif
 
 " }}}
